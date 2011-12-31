@@ -41,7 +41,7 @@ void Window::initGL() {
 	glEnable( GL_TEXTURE_2D );
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable( GL_BLEND );
-	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+	glBlendFunc( GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
 	glViewport(0, 0, width, height);
 	glMatrixMode( GL_MODELVIEW );
 	glMatrixMode( GL_PROJECTION );

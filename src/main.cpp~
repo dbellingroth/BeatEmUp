@@ -15,7 +15,7 @@ int main(int argc, char **argv) {
 
 	cout << "Programm gestartet..." << endl;
 
-	s = new Sprite();
+	s = new Sprite;
 	
 	Window window( 800, 600, 32, false );
 	window.setExternLoop( &loop );

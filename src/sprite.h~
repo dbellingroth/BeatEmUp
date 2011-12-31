@@ -29,7 +29,7 @@ class Sprite : public Transformable {
 	Sprite(string image_path);
 	virtual ~Sprite();
 
-	void draw();
+	virtual void draw();
 
 };
 

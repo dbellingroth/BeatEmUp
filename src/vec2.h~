@@ -14,8 +14,8 @@ class Vec2 {
 				     y(_y) {
 	}
 
-	Vec2() {}
-	virtual ~Vec2() {}
+	Vec2();
+	virtual ~Vec2();
 
 };
 

@@ -1,0 +1,12 @@
+//vec2.cpp
+
+#include "vec2.h"
+
+Vec2::Vec2()<T> {
+
+}
+
+
+Vec2::~Vec2() {
+
+}
