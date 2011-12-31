@@ -17,6 +17,9 @@ int main(int argc, char **argv) {
 
 	s = new Sprite();
 	
+
+	string str( "hello.bmp" );	
+	sprite = Sprite(str);
 	Window window( 800, 600, 32, false );
 	window.setExternLoop( &loop );
 

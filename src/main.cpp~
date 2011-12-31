@@ -15,8 +15,13 @@ int main(int argc, char **argv) {
 
 	cout << "Programm gestartet..." << endl;
 
-	s = new Sprite;
+	s = new Sprite();
 	
+<<<<<<< HEAD
+=======
+	string str( "hello.bmp" );	
+	sprite = Sprite(str);
+>>>>>>> b0d56368147c93fb8f70e527b84822d479fda549
 	Window window( 800, 600, 32, false );
 	window.setExternLoop( &loop );
 

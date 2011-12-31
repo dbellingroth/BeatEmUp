@@ -38,6 +38,7 @@ Window::~Window() {
 
 
 void Window::initGL() {
+
 	glEnable( GL_TEXTURE_2D );
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glEnable( GL_BLEND );
@@ -49,6 +50,19 @@ void Window::initGL() {
 	glOrtho(0, width, height, 0, 1, -1);
 	glMatrixMode( GL_MODELVIEW );
 	glDisable( GL_DEPTH_TEST );	
+
+	glEnable(GL_TEXTURE_2D);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, width, height, 0, 1, -1);
+	glMatrixMode(GL_MODELVIEW);
+	glDisable(GL_DEPTH_TEST);	
+
 }
 
 void Window::loop() {

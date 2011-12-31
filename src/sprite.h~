@@ -21,15 +21,20 @@ class Sprite : public Transformable {
 	int width, height, twidth, theight;
 	float wfac, hfac;
 	
+<<<<<<< HEAD
 	void init();
 	GLuint loadImage( string image_path );
+=======
+	int init();
+>>>>>>> b0d56368147c93fb8f70e527b84822d479fda549
 	
 	public:
 	Sprite();
 	Sprite(string image_path);
 	virtual ~Sprite();
 
-	virtual void draw();
+	GLuint loadImage(string image_path) ;
+	void draw();
 
 };
 
