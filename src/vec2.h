@@ -7,16 +7,16 @@ template <class T>
 class Vec2 {
 
 	public:
-	T first;
-	T second;
+	T x;
+	T y;
 
-	Vec2( T _first, T _second ) : first(_first),
-				     second(_second) {
+	Vec2( T _x, T _y ) : x(_x),
+				     y(_y) {
 	}
 
 	Vec2( ) {
-		first = NULL;
-		second = NULL;
+		x = NULL;
+		y = NULL;
 	}
 
 	virtual ~Vec2( ) {}

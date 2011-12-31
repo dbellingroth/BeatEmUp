@@ -21,12 +21,13 @@ class Sprite : public Transformable {
 	int width, height, twidth, theight;
 	float wfac, hfac;
 	
-	void init();
+	int init();
 	
 	public:
 	Sprite();
 	Sprite(string image_path);
 
+	GLuint loadImage(string image_path) ;
 	void draw();
 
 };

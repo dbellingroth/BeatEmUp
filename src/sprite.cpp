@@ -16,7 +16,7 @@ Sprite::Sprite(string image_path) {
 }
 
 
-Sprite::init() {
+int Sprite::init() {
 	
 
 }
@@ -25,7 +25,7 @@ Sprite::init() {
 GLuint Sprite::loadImage(string image_path) {
 
 	// Bild laden
-	SDL_Surface *Bild = SDL_LoadBMP(dateiname);
+	SDL_Surface *Bild = SDL_LoadBMP((char*)image_path.c_str());
 	
 	SDL_Surface *Konv = SDL_CreateRGBSurface(SDL_SWSURFACE, Bild->w, Bild->h, 32, 
                               #if SDL_BYTEORDER == SDL_BIG_ENDIAN
@@ -41,7 +41,7 @@ GLuint Sprite::loadImage(string image_path) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);    // zum Strecken und Stauchen den Filter GL_LINEAR ...
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);    // ... benutzen (sparsamer: GL_NEAREST)
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, Konv->w, Konv->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, Konv->pixels); 
-	Bereinigen und Zurückgeben
+	//Bereinigen und Zurückgeben
 	SDL_FreeSurface(Bild);
 	SDL_FreeSurface(Konv);
 	return textur;
@@ -54,11 +54,11 @@ GLuint Sprite::loadImage(string image_path) {
 
 void Sprite::draw() {
 
-	glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 	
 	glPushMatrix();
 		transform();
-		glBegin(GL11.GL_QUADS);
+		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);
 		glTexCoord2f(wfac, 0);

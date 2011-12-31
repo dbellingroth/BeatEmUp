@@ -38,17 +38,17 @@ Window::~Window() {
 
 
 void Window::initGL() {
-	glEnable(GL11.GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glEnable(GL11.GL_BLEND);
-	glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glViewport(0, 0, width, height);
-	glMatrixMode(GL11.GL_MODELVIEW);
-	glMatrixMode(GL11.GL_PROJECTION);
+	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, width, height, 0, 1, -1);
-	glMatrixMode(GL11.GL_MODELVIEW);
-	glDisable(GL11.GL_DEPTH_TEST);	
+	glMatrixMode(GL_MODELVIEW);
+	glDisable(GL_DEPTH_TEST);	
 }
 
 void Window::loop() {
