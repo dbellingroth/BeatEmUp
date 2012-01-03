@@ -22,7 +22,6 @@ int main(int argc, char **argv) {
 	s = new Sprite();
 	s2 = new Sprite();
 	
-
 	delete s;
 	
 	return 0;
