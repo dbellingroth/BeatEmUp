@@ -119,7 +119,6 @@ void Window::render() {
 	}
 
 	
-	
 	///////////ZEICHNEN///////////////
 
 
