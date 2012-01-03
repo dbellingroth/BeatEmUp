@@ -1,6 +1,8 @@
 //window.h
 #include "dep.h"
 #include <string>
+#include <iostream>
+#include "sprite.h"
 using namespace std;
 
 #ifndef _WINDOW_
@@ -8,10 +10,13 @@ using namespace std;
 
 enum WINDOW_MODE { WINDOW, FULLSCREEN };
 
+typedef void ( *funcP )( int delta ); // Funktionszeiger	auf die externe Funktion, die bei jedem Frame
+					//ausgefuehrt werden soll.
+
+
 class Window {
 	
 	private:
-	SDL_Surface* surface;
 	int width;
 	int height;
 	int bpp;
@@ -28,15 +33,14 @@ class Window {
 	void handleInput();
 	void render();
 
-	typedef void ( *funcP )( int ); // Funktionszeiger	auf die externe Funktion, die bei jedem Frame
-					//ausgefuehrt werden soll.
+	SDL_Event event;
 	funcP externLoop;
 
+		
 	public:
-	Window(int width, int height, int bpp, bool fullscreen);
+	Window( int width, int height, int bpp, bool fullscreen );
 	virtual ~Window();
-
-	SDL_Surface* getSurface() { return surface; }
+	Sprite spr();
 	int getWidth() { return width; }
 	int getHeight() { return height; }
 	int getBPP() { return bpp; }
@@ -46,9 +50,8 @@ class Window {
 	void stop() { running = false; }	
 	void setExternLoop( funcP externLoop ) { this->externLoop = externLoop; }
 
-
-	Window(const Window& src);
-	Window operator=(const Window& src);
+	Window( const Window& src );
+	Window operator=( const Window& src );
 };
 
 #endif

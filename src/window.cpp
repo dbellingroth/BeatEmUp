@@ -13,14 +13,11 @@ Window::Window(int _width, int _height, int _bpp, bool _fullscreen) :
 	SDL_Init( SDL_INIT_EVERYTHING );
 	
 	SDL_WM_SetCaption( caption.c_str(), NULL );
-	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
-
-	surface = SDL_SetVideoMode( width, height, bpp, SDL_OPENGL | ( fullscreen ? SDL_FULLSCREEN : 0 ) );
 
 	initGL();
-	
+
 	running = true;
-	
+
 	if( glGetError() == GL_NO_ERROR ) loop();
 
 }
@@ -30,48 +27,60 @@ Window::Window(int _width, int _height, int _bpp, bool _fullscreen) :
 
 Window::~Window() {
 
-	SDL_FreeSurface( surface );
 	SDL_Quit();
-
+	
 }
 
 
 
 void Window::initGL() {
 
-	glEnable( GL_TEXTURE_2D );
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	//Set OpenGl memory usage
+	SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
+	SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
+	SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
+	SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE, 8 );
+	SDL_GL_SetAttribute( SDL_GL_BUFFER_SIZE, 32 );
+	SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+	SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+
+	
+	//Set size, bpp and OpenGl usage
+	SDL_SetVideoMode( width, height, 32, SDL_OPENGL );
+
+	//the clear Color
+	glClearColor( 1, 1, 1, 1 ); //RED, GREEN, BLUE; ALPHA
+
+	//What portion of the screen we will display
+	glViewport( 0, 0, width, height );
+
+	//Shader-Model - Use this!
+	glShadeModel( GL_SMOOTH );
+
+	//2D rendering
+	glMatrixMode( GL_PROJECTION );
+
+	//"Save" it
+	glLoadIdentity();
+
+	//disable depth checking
+	glDisable( GL_DEPTH_TEST );
+
+	//enable blending for displaying textures
 	glEnable( GL_BLEND );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-	glViewport(0, 0, width, height);
-	glMatrixMode( GL_MODELVIEW );
-	glMatrixMode( GL_PROJECTION );
-	glLoadIdentity();
-	glOrtho(0, width, height, 0, 1, -1);
-	glMatrixMode( GL_MODELVIEW );
-	glDisable( GL_DEPTH_TEST );	
-
-	glEnable(GL_TEXTURE_2D);
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glViewport(0, 0, width, height);
-	glMatrixMode(GL_MODELVIEW);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(0, width, height, 0, 1, -1);
-	glMatrixMode(GL_MODELVIEW);
-	glDisable(GL_DEPTH_TEST);	
 
 }
 
 void Window::loop() {
-
+	
 	while(running) {
-		
+
 		handleInput();
 		render();	
-	
+
+		SDL_Delay( 30 );
+
 	}
 	
 }
@@ -79,31 +88,44 @@ void Window::loop() {
 
 void Window::handleInput() {
 
+	while ( SDL_PollEvent( &event ) ) {
+			if ( event.type == SDL_QUIT )
+				running = false;
 
+			if ( event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE )
+				running = false;
+
+			if ( event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_r ) 
+				glClearColor( 1, 0, 0, 1 ); //RED, GREEN, BLUE; ALPHA
+		}
+	
 }
 
 
 void Window::render() {
 
-	glClearColor( 1.0, 0.0, 0.0, 0.0 ); // Farbe zum Löschen setzen
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );     // Aktuellen Bildpuffer löschen
-	
+
+	glClear( GL_COLOR_BUFFER_BIT );     // Aktuellen Bildpuffer löschen
+
 	glMatrixMode( GL_MODELVIEW ); // Die Transformationsmatrix
 	glLoadIdentity();           // zurücksetzen...
 
+	glColor4f(1, 1, 1, 1);
 	///////////HIER///////////////////
 
+	if ( !externLoop ) {
+		externLoop( 1 );
+		cout << "hello\n";
+	}
 
-	externLoop( 1 );
-
-
+	
+	
 	///////////ZEICHNEN///////////////
 
 
 	SDL_GL_SwapBuffers(); // Bildpuffer vertauschen
                       // Wichtig ist, dass wir die Puffer erst nach
                       // der letzten Zeichenoperation tauschen.
-
 
 }
 

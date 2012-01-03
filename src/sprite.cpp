@@ -1,134 +1,63 @@
 #include <iostream>
 #include "sprite.h"
-
+#include <cmath>
 
 Sprite::Sprite() {
 	
-	string str = "hello.bmp";
-	image = loadImage( str );
+	image = loadImage( "src/test.png" );
 	init();
 
 }
 
-//Sprite::Sprite(string image_path) {
 
-//	image = loadImage(image_path);
-//	init();
+Sprite::Sprite( const std::string image_path ) {
 
-//}
+	image = loadImage( image_path );
+	init();
 
+}
 
 Sprite::~Sprite() {
+	
 }
 
 
 
 void Sprite::init() {
 
-int Sprite::init() {
-
-	
-
 }
 
 
-GLuint Sprite::loadImage(string image_path) {
+GLuint Sprite::loadImage( const std::string image_path ) {
 
-<<<<<<< HEAD
-	GLuint texture;
-		int w, h;
-		SDL_Surface *image;
-		SDL_Rect area;
-		Uint32 saved_flags;
-		Uint8  saved_alpha;
-		SDL_Surface *surface = SDL_LoadBMP( "hello.bmp" );
+	SDL_Surface* image = IMG_Load( image_path.c_str() );
 	
-		int longest_edge = surface->w > surface->h ? surface->w : surface->h;
-		int sprite_edge = 1;
-		while (sprite_edge < longest_edge) sprite_edge <<= 1;
+	unsigned object(0);
+
+	if ( image ) {
+		SDL_DisplayFormatAlpha( image );
+
+		glGenTextures( 1, &object );
+
+		glBindTexture( GL_TEXTURE_2D, object );
+
+		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+
+		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE );
+		glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
+
+		glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, image->w, image->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image->pixels );
+
+		//free surface
+		SDL_FreeSurface( image );
+	} else {
+		std::cout << image_path << " failed\n";
+	}
+	std::cout << object << std::endl;
 	
-		w = sprite_edge;
-		h = sprite_edge;
-
-		
-		image = SDL_CreateRGBSurface(
-				SDL_SWSURFACE,
-				sprite_edge, sprite_edge,
-				32,
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN // OpenGL RGBA masks
-				0x000000FF,
-				0x0000FF00,
-				0x00FF0000,
-				0xFF000000
-#else
-				0xFF000000,
-				0x00FF0000,
-				0x0000FF00,
-				0x000000FF
-#endif
-				);
-		if (!image) return 0;
-
-		// Save the alpha blending attributes
-		saved_flags = surface->flags&(SDL_SRCALPHA|SDL_RLEACCELOK);
-		saved_alpha = surface->format->alpha;
-		if ((saved_flags & SDL_SRCALPHA) == SDL_SRCALPHA)
-			SDL_SetAlpha(surface, 0, 0);
-
-		// Copy the surface into the GL texture image
-		area.x = 0;
-		area.y = 0;
-		area.w = surface->w;
-		area.h = surface->h;
-		SDL_BlitSurface(surface, &area, image, &area);
-
-		// Restore the alpha blending attributes
-		if ((saved_flags & SDL_SRCALPHA) == SDL_SRCALPHA)
-			SDL_SetAlpha(surface, saved_flags, saved_alpha);
-
-		// Create an OpenGL texture for the image
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-		// GL_NEAREST, GL_LINEAR
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D,
-				 0,
-				 GL_RGBA,
-				 w, h,
-				 0,
-				 GL_RGBA,
-				 GL_UNSIGNED_BYTE,
-				 image->pixels
-				 );
-		SDL_FreeSurface(image); // No longer needed
-
-		return texture;
+	return object;
 	
-=======
-	// Bild laden
-	SDL_Surface *Bild = SDL_LoadBMP((char*)image_path.c_str());
-	
-	SDL_Surface *Konv = SDL_CreateRGBSurface(SDL_SWSURFACE, Bild->w, Bild->h, 32, 
-                              #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-                                       0xff000000, 0x00ff0000, 0x0000ff00, 0x000000ff);
-                              #else
-                                       0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
-                              #endif
-	SDL_BlitSurface(Bild, 0, Konv, 0);
-	// Textur erstellen
-	GLuint textur;
-	glGenTextures(1, &textur);
-	glBindTexture(GL_TEXTURE_2D, textur);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);    // zum Strecken und Stauchen den Filter GL_LINEAR ...
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);    // ... benutzen (sparsamer: GL_NEAREST)
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, Konv->w, Konv->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, Konv->pixels); 
-	//Bereinigen und Zurückgeben
-	SDL_FreeSurface(Bild);
-	SDL_FreeSurface(Konv);
-	return textur;
-
->>>>>>> b0d56368147c93fb8f70e527b84822d479fda549
 }
 
 
@@ -137,19 +66,11 @@ GLuint Sprite::loadImage(string image_path) {
 
 void Sprite::draw() {
 
-<<<<<<< HEAD
 	glBindTexture( GL_TEXTURE_2D, textureID );
 	
 	glPushMatrix();
 		transform();
-		glBegin( GL_QUADS );
-=======
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	
-	glPushMatrix();
-		transform();
 		glBegin(GL_QUADS);
->>>>>>> b0d56368147c93fb8f70e527b84822d479fda549
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);
 		glTexCoord2f(wfac, 0);

@@ -5,7 +5,7 @@ LFLAGS = `sdl-config --cflags --static-libs`
 EXEC_NAME = BeatEmUp
 OS := $(shell uname)
 ifeq ($(OS), Linux)
-LFLAGS = -lGL -lglut `sdl-config --cflags --static-libs`
+LFLAGS = -lglut -lSDLmain -lSDL -lSDL_image -lGL `sdl-config --cflags --static-libs`
 endif
 
 all: $(OBJ_FILES)

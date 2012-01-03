@@ -4,11 +4,11 @@
 #define _SPRITE_
 
 
-
 #include "dep.h"
+#include "SDL/SDL_image.h"
 #include <string>
 #include "transformable.h"
-using namespace std;
+
 
 class Sprite : public Transformable {
 
@@ -21,19 +21,15 @@ class Sprite : public Transformable {
 	int width, height, twidth, theight;
 	float wfac, hfac;
 	
-
 	void init();
-	GLuint loadImage( string image_path );
-
-	int init();
-
+	GLuint loadImage( const std::string image_path );
 	
 	public:
 	Sprite();
-	Sprite(string image_path);
+	Sprite( const std::string image_path );
+
 	virtual ~Sprite();
 
-	GLuint loadImage(string image_path) ;
 	void draw();
 
 };

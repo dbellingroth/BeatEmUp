@@ -3,12 +3,9 @@
 #include "transformable.h"
 
 
-Transformable::Transformable() {
-}
+Transformable::Transformable() {}
 
-Transformable::~Transformable(){
-
-}
+Transformable::~Transformable() {}
 
 #include "transformable.h"
 

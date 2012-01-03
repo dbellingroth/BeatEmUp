@@ -1,4 +1,4 @@
-
+//main.cpp
 #include "dep.h"
 #include <iostream>
 #include "window.h"
@@ -14,16 +14,11 @@ Sprite* s = 0;
 int main(int argc, char **argv) {	
 
 	cout << "Programm gestartet..." << endl;
+	
+	Window window( 800, 600, 32, false );
+	window.setExternLoop( loop );
 
 	s = new Sprite();
-	
-
-	string str( "hello.bmp" );	
-	sprite = Sprite(str);
-	Window window( 800, 600, 32, false );
-	window.setExternLoop( &loop );
-
-	cout << "Programm beendet..." << endl;
 
 	delete s;
 	
@@ -32,7 +27,7 @@ int main(int argc, char **argv) {
 
 
 void loop( int delta ) {
-
+	cout << "loop\n";
 	s->draw();
 
 }
