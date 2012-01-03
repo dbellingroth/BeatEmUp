@@ -15,8 +15,7 @@ class Sprite : public Transformable {
 	private:
 	bool visible;
 	int zIndex;
-	int textureID;
-	GLuint image;
+	GLuint textureID;
 	static int idCounter;
 	int width, height, twidth, theight;
 	float wfac, hfac;

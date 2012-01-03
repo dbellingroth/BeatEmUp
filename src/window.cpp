@@ -16,12 +16,8 @@ Window::Window(int _width, int _height, int _bpp, bool _fullscreen) :
 
 	initGL();
 
-	running = true;
-
-	if( glGetError() == GL_NO_ERROR ) loop();
 
 }
-
 
 
 
@@ -29,6 +25,21 @@ Window::~Window() {
 
 	SDL_Quit();
 	
+}
+
+void Window::setExternLoop( funcP extLoop ) { 
+	
+	this->extLoop = extLoop; 
+	
+}
+
+
+bool Window::createDisplay() {
+
+	running = true;
+
+	if( glGetError() == GL_NO_ERROR ) loop();
+
 }
 
 
@@ -70,7 +81,12 @@ void Window::initGL() {
 	glEnable( GL_BLEND );
 	glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
+	glEnable( GL_TEXTURE_2D );
+	
+	glOrtho( 0, width, height, 0, 1, -1 );
+
 }
+
 
 void Window::loop() {
 	
@@ -111,11 +127,7 @@ void Window::render() {
 	glColor4f(1, 1, 1, 1);
 	///////////HIER///////////////////
 
-	if ( !externLoop ) {
-		externLoop( 1 );
-		cout << "hello\n";
-	}
-
+	if ( extLoop ) extLoop( 1 );
 	
 	///////////ZEICHNEN///////////////
 
