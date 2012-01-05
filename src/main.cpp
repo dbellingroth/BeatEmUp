@@ -9,8 +9,8 @@ using namespace std;
 
 void loop( int delta );
 
-Sprite* s = 0;
-Sprite* s2 = 0;
+Sprite* s = NULL;
+
 
 int main(int argc, char **argv) {	
 
@@ -18,9 +18,6 @@ int main(int argc, char **argv) {
 	Window window( 800, 600, 32, false );
 	window.setExternLoop( &loop );
 	window.createDisplay();
-	
-	s = new Sprite();
-	s2 = new Sprite();
 	
 	delete s;
 	
@@ -30,7 +27,7 @@ int main(int argc, char **argv) {
 
 void loop( int delta ) {
 	
-
-	s->draw();
+	if ( !s ) s = new Sprite();
+	if ( s ) s->draw();
 
 }
