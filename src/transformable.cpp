@@ -3,14 +3,19 @@
 #include "transformable.h"
 
 
-Transformable::Transformable() {}
+Transformable::Transformable()
+						//	: translate( Vec2f( 0, 0) ),
+						//	  rotationPoint( Vec2f( 0, 0 ) ),
+						//	  rotationAngle( 0 ),
+						//	  scaleFactor( Vec2f( 1, 1 ) ) {
+{
+}
 
 Transformable::~Transformable() {}
 
 #include "transformable.h"
 
 void Transformable::transform() {
-
 
 	glTranslated(getTranslate().x, getTranslate().y, 0);
 	glTranslated(getRotationPoint().x, getRotationPoint().y, 0);

@@ -1,10 +1,14 @@
 //main.cpp
-#include "dep.h"
+
+//standard includes
 #include <iostream>
+#include <string>
+
+//own includes
+#include "dep.h"
 #include "window.h"
 #include "sprite.h"
-#include <string>
-using namespace std;
+
 
 
 void loop( int delta );
@@ -16,7 +20,11 @@ int main(int argc, char **argv) {
 
 	
 	Window window( 800, 600, 32, false );
+	window.setCaption( "SDL / OpenGL - Test" );
 	window.setExternLoop( &loop );
+
+	s = new Sprite( "img/test.png" );
+	
 	window.createDisplay();
 	
 	delete s;
@@ -27,7 +35,6 @@ int main(int argc, char **argv) {
 
 void loop( int delta ) {
 	
-	if ( !s ) s = new Sprite();
-	if ( s ) s->draw();
+	s->draw();
 
 }

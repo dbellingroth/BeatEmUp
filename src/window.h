@@ -12,6 +12,7 @@ enum WINDOW_MODE { WINDOW, FULLSCREEN };
 
 typedef void ( *funcP )( int delta ); // Funktionszeiger	auf die externe Funktion, die bei jedem Frame
 					//ausgefuehrt werden soll.
+typedef void ( *funcP_event )( SDL_Event* event );
 
 class Window {
 	
@@ -23,8 +24,7 @@ class Window {
 	long fps, lastFPS, lastFrame;
 	std::string caption;
 	WINDOW_MODE w_mode;
-	bool mouse_cursor;
-	bool fullscreen;
+	bool mouse_cursor, fullscreen;
 	bool running;
 	
 	void initGL();
@@ -34,6 +34,8 @@ class Window {
 
 	SDL_Event event;
 	funcP extLoop;
+	funcP_event mouseInput;
+	funcP_event keyInput;
 
 		
 	public:
@@ -49,12 +51,14 @@ class Window {
 	std::string getCaption() { return caption; }
 	void setCaption( std::string caption ) { this->caption = caption; }
 	void setMouseCursor( bool mouse_cursor ) { this->mouse_cursor = mouse_cursor; }
-	void stop() { running = false; }	
-	void setExternLoop( void ( *extLoop )( int delta ) );
+	void stop() { running = false; }
+
+	//Funktionspointer uebergeben
+	void setExternLoop( funcP extLoop );
+	void setInputLoop( funcP_event mouse, funcP_event key );
+	
 	bool createDisplay();
-		
-
-
+	
 };
 
 #endif

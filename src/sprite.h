@@ -21,6 +21,9 @@ class Sprite : public Transformable {
 	float wfac, hfac;
 	
 	void init();
+	Uint32 get_pixel32( SDL_Surface *image, int x, int y );
+	void put_pixel32( SDL_Surface *surface, int x, int y, Uint32 pixel );
+	SDL_Surface* flip_surface( SDL_Surface* image );
 	GLuint loadImage( const std::string image_path );
 	
 	public:

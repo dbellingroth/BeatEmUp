@@ -1,7 +1,7 @@
 //window.cpp
 #include "window.h"
 #include <iostream>
-using namespace std;
+
 
 Window::Window(int _width, int _height, int _bpp, bool _fullscreen) : 
 						width(_width),
@@ -9,13 +9,15 @@ Window::Window(int _width, int _height, int _bpp, bool _fullscreen) :
 						bpp(_bpp),
 						fullscreen(_fullscreen) {
 
+	extLoop = NULL;
+	mouseInput = NULL;
+	keyInput = NULL;
     
 	SDL_Init( SDL_INIT_EVERYTHING );
 	
 	SDL_WM_SetCaption( caption.c_str(), NULL );
-
+						
 	initGL();
-
 
 }
 
@@ -27,9 +29,18 @@ Window::~Window() {
 	
 }
 
+
 void Window::setExternLoop( funcP extLoop ) { 
 	
 	this->extLoop = extLoop; 
+	
+}
+
+
+void Window::setInputLoop( funcP_event mouse, funcP_event keyboard ) { 
+	
+	this->mouseInput = mouse;
+	this->keyInput = keyboard;
 	
 }
 
@@ -39,9 +50,9 @@ bool Window::createDisplay() {
 	running = true;
 
 	if( glGetError() == GL_NO_ERROR ) loop();
-
+	else std::cout << glGetError() << std::endl;
+	
 }
-
 
 
 void Window::initGL() {
@@ -57,6 +68,7 @@ void Window::initGL() {
 
 	
 	//Set size, bpp and OpenGl usage
+	//http://sdl.beuc.net/sdl.wiki/SDL_SetVideoMode
 	SDL_SetVideoMode( width, height, 32, SDL_OPENGL );
 
 	//the clear Color
@@ -111,6 +123,9 @@ void Window::handleInput() {
 				running = false;
 			if ( event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_r ) 
 				glClearColor( 1, 0, 0, 1 ); //RED, GREEN, BLUE; ALPHA
+
+			if ( mouseInput ) mouseInput ( &event );
+			if ( keyInput ) keyInput ( &event );
 		}
 	
 }
@@ -133,12 +148,5 @@ void Window::render() {
 
 
 	SDL_GL_SwapBuffers(); // Bildpuffer vertauschen
-                      // Wichtig ist, dass wir die Puffer erst nach
-                      // der letzten Zeichenoperation tauschen.
 
 }
-
-
-
-
-
