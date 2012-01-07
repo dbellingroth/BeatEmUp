@@ -28,10 +28,17 @@ void Sprite::init() {
 
 
 GLuint Sprite::loadImage( const std::string image_path ) {
-
 //load image
-	SDL_Surface* image = IMG_Load( image_path.c_str() );
+	SDL_Surface* image = NULL;
+	image = IMG_Load( image_path.c_str() );
 
+	if ( !image ) std::cout << "Fehler: " << image_path << std::endl;
+	else {
+		if ( image->format->Amask == 0 ) {
+			image = SDL_DisplayFormatAlpha( image );
+		}
+	}
+	
 //put size
 	width = image->w;
 	height = image->h;
@@ -41,9 +48,10 @@ GLuint Sprite::loadImage( const std::string image_path ) {
 	twidth = theight = 	(int) pow(2,
 				round((log(longest_edge) / log(2)) + 0.499999));
 
-
+	SDL_DisplayFormatAlpha( image );
 	SDL_Surface* quad_surface = flip_surface( image ); 
 
+	
 	wfac = (float) width / twidth;
 	hfac = (float) height / theight;
 
@@ -136,15 +144,17 @@ void Sprite::put_pixel32( SDL_Surface *image, int x, int y, Uint32 pixel ) {
 
 
 SDL_Surface* Sprite::flip_surface( SDL_Surface* image ) { 
-	
 //Pointer to the soon to be flipped surface 
+
+	//SDL_SetAlpha( image, 4278190080 );
+
 	SDL_Surface* quad_surface = NULL; 
 	
-	if( image->flags & SDL_SRCCOLORKEY ) { 
+	if( image->flags & SDL_SRCCOLORKEY ) {
 	 	quad_surface = SDL_CreateRGBSurface( 
 						SDL_SWSURFACE, this->twidth, this->theight, image->format->BitsPerPixel, 
 						image->format->Rmask, image->format->Gmask, image->format->Bmask, 0 ); 
-	} else { 
+	} else {
 		quad_surface = SDL_CreateRGBSurface( 
 					SDL_SWSURFACE, this->twidth, this->theight, image->format->BitsPerPixel, 
 					image->format->Rmask, image->format->Gmask, image->format->Bmask, image->format->Amask ); 
@@ -156,11 +166,10 @@ SDL_Surface* Sprite::flip_surface( SDL_Surface* image ) {
 		SDL_LockSurface( image );
 	}
 
-	
 //Go through columns 
-	for( int x = 0 ; x < quad_surface->w; x++ ) { 
+	for( int x = 0 ; x < image->w; x++ ) { 
 		//Go through rows 
-		for( int y = 0 ; y < quad_surface->h; y++ ) {
+		for( int y = 0 ; y < image->h; y++ ) {
 			put_pixel32( quad_surface, x, y, get_pixel32( image, x, y ) ); 
 		} 
 	}

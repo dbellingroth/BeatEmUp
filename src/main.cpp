@@ -13,6 +13,7 @@
 
 void loop( int delta );
 
+
 Sprite* s = NULL;
 
 
@@ -23,11 +24,14 @@ int main(int argc, char **argv) {
 	window.setCaption( "SDL / OpenGL - Test" );
 	window.setExternLoop( &loop );
 
+
 	s = new Sprite( "img/test.png" );
 	
 	window.createDisplay();
 	
 	delete s;
+
+
 	
 	return 0;
 }
