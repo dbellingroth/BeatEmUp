@@ -4,16 +4,12 @@
 
 
 Transformable::Transformable()
-						//	: translate( Vec2f( 0, 0) ),
-						//	  rotationPoint( Vec2f( 0, 0 ) ),
-						//	  rotationAngle( 0 ),
-						//	  scaleFactor( Vec2f( 1, 1 ) ) {
-{
+							: translate( Vec2f( 0, 0) ),
+							  rotationAngle( 3.14 ),
+							  scaleFactor( Vec2f( 1, 1 ) ) {
+
 }
 
-Transformable::~Transformable() {}
-
-#include "transformable.h"
 
 void Transformable::transform() {
 

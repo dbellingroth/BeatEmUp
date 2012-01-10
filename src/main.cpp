@@ -7,11 +7,11 @@
 //own includes
 #include "dep.h"
 #include "window.h"
-#include "sprite.h"
-
+#include "spritelib.h"
 
 
 void loop( int delta );
+
 
 
 Sprite* s = NULL;
@@ -24,14 +24,13 @@ int main(int argc, char **argv) {
 	window.setCaption( "SDL / OpenGL - Test" );
 	window.setExternLoop( &loop );
 
+	SpriteLib sLib;
 
-	s = new Sprite( "img/test.png" );
-	
+	s = sLib.getSprite( "img/apple.png" );
+
 	window.createDisplay();
 	
-	delete s;
-
-
+	sLib.deleteAll();
 	
 	return 0;
 }

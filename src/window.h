@@ -21,7 +21,7 @@ class Window {
 	int height;
 	int bpp;
 	int delta;
-	long fps, lastFPS, lastFrame;
+	long desired_fps, fps, lastFPS, lastFrame;
 	std::string caption;
 	WINDOW_MODE w_mode;
 	bool mouse_cursor, fullscreen;

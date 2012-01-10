@@ -6,6 +6,7 @@
 Window::Window(int _width, int _height, int _bpp, bool _fullscreen) : 
 						width(_width),
 						height(_height),
+						desired_fps( 120 ),
 						bpp(_bpp),
 						fullscreen(_fullscreen) {
 
@@ -30,11 +31,13 @@ Window::~Window() {
 }
 
 
+
 void Window::setExternLoop( funcP extLoop ) { 
 	
 	this->extLoop = extLoop; 
 	
 }
+
 
 
 void Window::setInputLoop( funcP_event mouse, funcP_event keyboard ) { 
@@ -45,6 +48,7 @@ void Window::setInputLoop( funcP_event mouse, funcP_event keyboard ) {
 }
 
 
+
 bool Window::createDisplay() {
 
 	running = true;
@@ -53,6 +57,7 @@ bool Window::createDisplay() {
 	else std::cout << glGetError() << std::endl;
 	
 }
+
 
 
 void Window::initGL() {
@@ -100,6 +105,7 @@ void Window::initGL() {
 }
 
 
+
 void Window::loop() {
 	
 	while(running) {
@@ -112,6 +118,7 @@ void Window::loop() {
 	}
 	
 }
+
 
 
 void Window::handleInput() {
@@ -131,8 +138,8 @@ void Window::handleInput() {
 }
 
 
-void Window::render() {
 
+void Window::render() {
 
 	glClear( GL_COLOR_BUFFER_BIT );     // Aktuellen Bildpuffer löschen
 

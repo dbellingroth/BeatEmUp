@@ -19,7 +19,7 @@ class Transformable {
 
 	public:
 	Transformable();
-	virtual ~Transformable();
+	virtual ~Transformable() {}
 		
 	Vec2f getTranslate() { return translate; }
 	void setTranslate( Vec2f translate ) { translate = translate; }
@@ -37,8 +37,7 @@ class Transformable {
 	 * aufgerufen werden!
 	 */
 	virtual void transform();
-
-		
+	
 };
 
 #endif

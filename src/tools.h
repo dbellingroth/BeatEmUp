@@ -1,11 +1,11 @@
 
 
-
-
-
+#ifndef _TOOLS_
+#define _TOOLS_
 
 class Tools {
 
+	public:
 	//returns the biggest size
 	template <class T>
 	static T getMajor( const T first, const T second ) { return first > second ? first : second; }
@@ -18,18 +18,6 @@ class Tools {
 	static int nextPowerOfTwo( const float basis );
 
 
-	static Vec2 convertVectorPhys2Pix(Vec2 vector) {
-
-		return new Vec2(vector.x * PhysicsWorld.pixelsPerMeter, vector.y
-				* PhysicsWorld.pixelsPerMeter);
-	}
-
-	static Vec2 convertVectorPix2Phys(Vec2 vector) {
-
-		return new Vec2(vector.x / PhysicsWorld.pixelsPerMeter, vector.y
-				/ PhysicsWorld.pixelsPerMeter);
-	}
-	
-
-
 };
+
+#endif
