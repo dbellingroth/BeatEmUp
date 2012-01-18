@@ -18,7 +18,6 @@ SpriteLib::~SpriteLib() {
 
 Sprite* SpriteLib::getSprite( string sprite_name ) {
 
-	
 	if (( sprites_it = sprites.find( sprite_name )) != sprites.end() ) return &(sprites_it->second);
 	else {
 		sprites.insert( sprites.end(), SpriteMap::value_type( sprite_name, Sprite( sprite_name )));

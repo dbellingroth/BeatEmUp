@@ -3,17 +3,13 @@
 #include <iostream>
 
 
-Window::Window(int _width, int _height, int _bpp, bool _fullscreen) : 
+Window::Window( int _width, int _height, int _bpp, bool _fullscreen) : 
 						width(_width),
 						height(_height),
 						desired_fps( 120 ),
 						bpp(_bpp),
 						fullscreen(_fullscreen) {
 
-	extLoop = NULL;
-	mouseInput = NULL;
-	keyInput = NULL;
-    
 	SDL_Init( SDL_INIT_EVERYTHING );
 	
 	SDL_WM_SetCaption( caption.c_str(), NULL );
@@ -31,32 +27,6 @@ Window::~Window() {
 }
 
 
-
-void Window::setExternLoop( funcP extLoop ) { 
-	
-	this->extLoop = extLoop; 
-	
-}
-
-
-
-void Window::setInputLoop( funcP_event mouse, funcP_event keyboard ) { 
-	
-	this->mouseInput = mouse;
-	this->keyInput = keyboard;
-	
-}
-
-
-
-bool Window::createDisplay() {
-
-	running = true;
-
-	if( glGetError() == GL_NO_ERROR ) loop();
-	else std::cout << glGetError() << std::endl;
-	
-}
 
 
 
@@ -106,14 +76,30 @@ void Window::initGL() {
 
 
 
+bool Window::createDisplay( Principal* principal ) {
+
+	this->principal = principal;
+	
+	running = true;
+		
+	if( glGetError() == GL_NO_ERROR ) loop();
+	else std::cout << glGetError() << std::endl;
+
+}
+
+
+
 void Window::loop() {
 	
 	while(running) {
 
 		handleInput();
+		
+		if ( principal ) principal->update( 1 );
+		
 		render();	
 
-		SDL_Delay( 30 );
+		SDL_Delay( 60 );
 
 	}
 	
@@ -131,8 +117,7 @@ void Window::handleInput() {
 			if ( event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_r ) 
 				glClearColor( 1, 0, 0, 1 ); //RED, GREEN, BLUE; ALPHA
 
-			if ( mouseInput ) mouseInput ( &event );
-			if ( keyInput ) keyInput ( &event );
+			if ( principal ) principal->input( event );
 		}
 	
 }
@@ -149,7 +134,7 @@ void Window::render() {
 	glColor4f(1, 1, 1, 1);
 	///////////HIER///////////////////
 
-	if ( extLoop ) extLoop( 1 );
+	if ( principal ) principal->draw();
 	
 	///////////ZEICHNEN///////////////
 

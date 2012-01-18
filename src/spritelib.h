@@ -9,7 +9,7 @@
 #include <list>
 
 #include "spritearray.h"
-using namespace std;
+
 
 
 typedef map<string, Sprite> SpriteMap;

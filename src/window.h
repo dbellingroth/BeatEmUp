@@ -3,6 +3,9 @@
 #include <string>
 #include <iostream>
 #include "sprite.h"
+#include "gameobject.h"
+#include "inputlistener.h"
+#include "game.h"
 
 
 #ifndef _WINDOW_
@@ -10,10 +13,7 @@
 
 enum WINDOW_MODE { WINDOW, FULLSCREEN };
 
-typedef void ( *funcP )( int delta ); // Funktionszeiger	auf die externe Funktion, die bei jedem Frame
-					//ausgefuehrt werden soll.
-typedef void ( *funcP_event )( SDL_Event* event );
-
+typedef Game Principal;
 class Window {
 	
 	private:
@@ -33,11 +33,8 @@ class Window {
 	void render();
 
 	SDL_Event event;
-	funcP extLoop;
-	funcP_event mouseInput;
-	funcP_event keyInput;
+	Principal* principal;
 
-		
 	public:
 	Window( int width, int height, int bpp, bool fullscreen );
 	Window( const Window& src );
@@ -53,11 +50,8 @@ class Window {
 	void setMouseCursor( bool mouse_cursor ) { this->mouse_cursor = mouse_cursor; }
 	void stop() { running = false; }
 
-	//Funktionspointer uebergeben
-	void setExternLoop( funcP extLoop );
-	void setInputLoop( funcP_event mouse, funcP_event key );
 	
-	bool createDisplay();
+	bool createDisplay( Principal* principal );
 	
 };
 

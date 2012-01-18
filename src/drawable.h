@@ -5,10 +5,9 @@
 
 class Drawable {
 
-	private:
+	protected:
 	float zIndex;
 	bool visible;
-
 	
 	public:
 	Drawable() : zIndex( 0 ), visible( true ) {}
