@@ -17,6 +17,9 @@ class Vec2 {
 
 	Vec2() {}
 	virtual ~Vec2() {}
+	
+	Vec2 operator+(Vec2 other);
+	Vec2 operator-(Vec2 other);
 
 };
 

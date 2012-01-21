@@ -56,6 +56,8 @@ class TestGame : public Game {
 
 
 int main(int argc, char **argv) {	
+  
+  Vec2<float> temp = new Vec2<float>(2.6,7.6);
 
 	Window window( 800, 600, 32, false );
 	window.setCaption( "SDL / OpenGL - Test" );	
