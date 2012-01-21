@@ -11,15 +11,16 @@ class Vec2 {
 	T y;
 
 
-	Vec2( T _y, T _x ) : x(_x),
+	Vec2( T _x, T _y ) : x(_x),
 				     y(_y) {
 	}
 
 	Vec2() {}
 	virtual ~Vec2() {}
 	
-	Vec2 operator+(Vec2 other);
-	Vec2 operator-(Vec2 other);
+
+  Vec2<T> operator+ ( const Vec2<T> op );
+  Vec2<T> operator- ( const Vec2<T> op );
 
 };
 

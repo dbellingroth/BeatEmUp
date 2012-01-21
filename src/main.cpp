@@ -13,6 +13,7 @@
 #include "gameobject.h"
 #include "inputlistener.h"
 #include "spritearray.h"
+#include "vec2.h"
 
 
 
@@ -57,7 +58,13 @@ class TestGame : public Game {
 
 int main(int argc, char **argv) {	
   
-  Vec2<float> temp = new Vec2<float>(2.6,7.6);
+  Vec2<float> temp1(2.6,7.6);
+  Vec2<float> temp2(0.4,0.4);
+  temp1= temp1 + temp2;
+  cout << "----------------" << endl;
+  cout << temp1.x << endl;
+  cout << temp1.y << endl;
+  cout << "----------------" << endl;
 
 	Window window( 800, 600, 32, false );
 	window.setCaption( "SDL / OpenGL - Test" );	
