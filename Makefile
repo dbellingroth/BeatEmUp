@@ -1,7 +1,7 @@
 CPP_FILES := $(wildcard src/*.cpp)
 OBJ_FILES := $(addprefix obj/,$(notdir $(CPP_FILES:.cpp=.o)))
 CFLAGS  = 
-LFLAGS = `sdl-config --cflags --static-libs`
+LFLAGS = -lSDL_image  `sdl-config --cflags --static-libs`
 EXEC_NAME = BeatEmUp
 OS := $(shell uname)
 ifeq ($(OS), Linux)

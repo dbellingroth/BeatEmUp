@@ -13,9 +13,14 @@
 #include "gameobject.h"
 #include "inputlistener.h"
 #include "spritearray.h"
+<<<<<<< HEAD
 #include <list>
 #include "sprite.h"
 #include "vec2.h"
+=======
+#include "vec2.h"
+
+>>>>>>> 03f06cc0148c0b91db3df2dcae7564f7dbdf3f96
 
 
 
@@ -67,6 +72,14 @@ class TestGame : public Game {
 
 
 int main(int argc, char **argv) {	
+  
+  Vec2<float> temp1(2.6,7.6);
+  Vec2<float> temp2(0.4,0.4);
+  temp1= temp1 + temp2;
+  cout << "----------------" << endl;
+  cout << temp1.x << endl;
+  cout << temp1.y << endl;
+  cout << "----------------" << endl;
 
 	Vec2<float> a( 2.5, 1.5 );
 	Vec2<float> b( 1.0, 2.0 );
