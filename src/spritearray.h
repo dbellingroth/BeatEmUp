@@ -25,6 +25,7 @@ class SpriteArray : public Drawable, public Transformable {
 	SpriteArray( const string image_path, int nx, int ny );
 	virtual ~SpriteArray();
 
+	void setCurrent( int index );
 	void enableAnimation() { animation = true; }
 	void disableAnimation() { animation = false; }
 	void setDisplayTime( float displayTime ) { this->displayTime = displayTime; }

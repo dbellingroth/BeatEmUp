@@ -76,8 +76,6 @@ SDL_Surface* Sprite::loadImage( const std::string image_path ) {
 			image = SDL_DisplayFormatAlpha( image );
 		}
 	}
-	
-	SDL_DisplayFormatAlpha( image );
 
 	return image;
 }
@@ -163,8 +161,11 @@ void Sprite::flipSurface( SDL_Surface* src, SDL_Surface* desk ) {
 std::list<Sprite> Sprite::getSubImages( const std::string image_path, int nx, int ny ) {
 
 	std::list<Sprite> sprites;
+	
+	//SDL_Surface* image = loadImage( image_path );
 
-	SDL_Surface* image = loadImage( image_path );
+	SDL_Surface* image = IMG_Load( image_path.c_str() );
+		
 	int width = image->w / nx;
 	int height = image->h / ny;
 	
@@ -179,6 +180,7 @@ std::list<Sprite> Sprite::getSubImages( const std::string image_path, int nx, in
 			sprites.push_back( Sprite( sub_surface ));
 		}
 	}
+	
 	return sprites;
 }
 

@@ -47,7 +47,7 @@ void Window::initGL() {
 	SDL_SetVideoMode( width, height, 32, SDL_OPENGL );
 
 	//the clear Color
-	glClearColor( 1, 1, 1, 1 ); //RED, GREEN, BLUE; ALPHA
+	glClearColor( 0, 0, 0, 1 ); //RED, GREEN, BLUE; ALPHA
 
 	//What portion of the screen we will display
 	glViewport( 0, 0, width, height );

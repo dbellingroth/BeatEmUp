@@ -11,8 +11,7 @@ SpriteArray::SpriteArray( const string image_path, int nx, int ny )
 
 	sprites = Sprite::getSubImages( image_path, nx, ny );
 	currentSprite = sprites.begin() ;	
-	currentSprite++;
-	currentSprite++;
+
 	if ( currentSprite == sprites.end() ) std::cout << "true\n";
 	loopStart = sprites.begin() ;
 	loopEnding = sprites.end() ;
@@ -27,7 +26,7 @@ SpriteArray::~SpriteArray() {
 
 
 void SpriteArray::update(int delta) {
-/*
+
 	if ( visible && animation ) {
 		
 		displayedTime += (delta * pow(10, -1));
@@ -37,13 +36,13 @@ void SpriteArray::update(int delta) {
 			displayedTime = 0;
 			currentSprite++;
 			
-			if ( currentSprite == loopEnding )) {
+			if ( currentSprite == loopEnding ) {
 				if ( loop ) currentSprite = loopStart;
 				else setVisibility( false );
 			}
 		}
 	}
-*/
+
 }
 
 
@@ -61,7 +60,12 @@ void SpriteArray::draw() {
 
 }
 
+void SpriteArray::setCurrent( int index ) {
 
+	currentSprite = sprites.begin();
+	for (  int i = 0 ; i < index && currentSprite != --(sprites.end()) ; i++, currentSprite++ );
+	
+}
 
 bool SpriteArray::setLoop( int loopStarti, int loopEndingi ) {
 
