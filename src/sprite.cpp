@@ -162,9 +162,7 @@ std::list<Sprite> Sprite::getSubImages( const std::string image_path, int nx, in
 
 	std::list<Sprite> sprites;
 	
-	//SDL_Surface* image = loadImage( image_path );
-
-	SDL_Surface* image = IMG_Load( image_path.c_str() );
+	SDL_Surface* image = loadImage( image_path );
 		
 	int width = image->w / nx;
 	int height = image->h / ny;
@@ -180,6 +178,8 @@ std::list<Sprite> Sprite::getSubImages( const std::string image_path, int nx, in
 			sprites.push_back( Sprite( sub_surface ));
 		}
 	}
+
+	SDL_FreeSurface( image );
 	
 	return sprites;
 }

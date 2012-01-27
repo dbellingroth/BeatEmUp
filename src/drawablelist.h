@@ -17,7 +17,7 @@ class DrawableList {
 	DrawableList();
 	virtual ~DrawableList();
 		
-	void add( Drawable* drawable );
+	void add( Drawable* );
 	void remove( int index );
 	void remove( Drawable* );
 	bool contains( Drawable* );

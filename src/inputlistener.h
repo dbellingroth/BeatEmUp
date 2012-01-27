@@ -10,7 +10,7 @@
 class InputListener {
 
 	public:
-	virtual void input( SDL_Event event ) = 0;
+	virtual void input( SDL_Event& event ) = 0;
 	//virtual void joystickInput( SDL_Event* event ) = 0;	
 
 };
