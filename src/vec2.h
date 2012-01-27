@@ -17,17 +17,9 @@ class Vec2 {
 	}
 
 	Vec2() {}
-<<<<<<< HEAD
 	virtual ~Vec2() {}	
 
-
-=======
-	virtual ~Vec2() {}
 	
-
-  Vec2<T> operator+ ( const Vec2<T> op );
-  Vec2<T> operator- ( const Vec2<T> op );
->>>>>>> 03f06cc0148c0b91db3df2dcae7564f7dbdf3f96
 
 };
 

@@ -13,14 +13,12 @@
 #include "gameobject.h"
 #include "inputlistener.h"
 #include "spritearray.h"
-<<<<<<< HEAD
 #include <list>
 #include "sprite.h"
 #include "vec2.h"
-=======
+
 #include "vec2.h"
 
->>>>>>> 03f06cc0148c0b91db3df2dcae7564f7dbdf3f96
 
 
 
