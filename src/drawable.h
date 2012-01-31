@@ -13,7 +13,7 @@ class Drawable {
 	Drawable() : zIndex( 0 ), visible( true ) {}
 	virtual ~Drawable() {}
 	
-	void setZIndex( float& index ) { zIndex = index; };
+	void setZIndex( float index ) { zIndex = index; };
 	float getZIndex() { return zIndex; } 
 	bool isVisible() { return visible; }
 	void setVisibility( bool visible ) { this->visible = visible; }

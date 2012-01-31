@@ -37,7 +37,7 @@ class TestGame : public Game {
 		dList.add( s2 );
 		dList.add( new Sprite( "img/ball.png" ));
 		
-		dList.remove( s1 );
+		dList.remove( s2 );
 	}
 
 	

@@ -39,12 +39,13 @@ void DrawableList::remove( int index ) {
 
 
 void DrawableList::remove( Drawable* drawable ) {
-/*
+
 	if ( dList.size() ) {
 
-		for ( it = dList.begin() ; ((*it) != drawable
+		for ( it = dList.begin() ; ((*it) != drawable && it != dList.end()) ; it++ );
 
-	}*/
+		if ( it != dList.end()) dList.erase( it );
+	}
 }
 
 
