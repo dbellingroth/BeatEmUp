@@ -27,8 +27,8 @@ private:
 public:
 	TestGame() {
 
-		Sprite* s1 = new Sprite("img/oalpha.png");
-		Sprite* s2 = new Sprite("img/apple.png");
+		s1 = new Sprite("img/oalpha.png");
+		s2 = new Sprite("img/apple.png");
 		s1->print();
 		dList.add(s1);
 		dList.add(s2);
@@ -62,7 +62,6 @@ int main(int argc, char **argv) {
 
 	TestGame test;
 	window.createDisplay(&test);
-	exit(0);
 	return 0;
 }
 
