@@ -3,8 +3,10 @@
 #ifndef _SPRITE_
 #define _SPRITE_
 
+#include <iostream>
 #include <string>
 #include <list>
+
 
 #include "dep.h"
 #include "SDL/SDL_image.h"

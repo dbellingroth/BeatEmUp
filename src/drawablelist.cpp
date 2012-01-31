@@ -26,7 +26,7 @@ void DrawableList::add( Drawable* drawable ) {
 
 void DrawableList::remove( int index ) {
 
-	if ( index < dList.size() ) {
+	if ( index < dList.size() && dList.size() != 0 ) {
 		
 		it = dList.begin();
 		for ( int i = 0 ; i < index ; ++i, it++ );
@@ -39,14 +39,18 @@ void DrawableList::remove( int index ) {
 
 
 void DrawableList::remove( Drawable* drawable ) {
+/*
+	if ( dList.size() ) {
 
-	if ( contains( drawable)) dList.erase( it );
+		for ( it = dList.begin() ; ((*it) != drawable
+
+	}*/
 }
 
 
 bool DrawableList::contains( Drawable* drawable ) {
 
-	if ( dList.size() != 0 ) return false;
+	if ( dList.size() ) return false;
 	else {
 		for ( it = dList.begin() ; ((*it) != drawable && it != dList.end() ) ; it++ );
 

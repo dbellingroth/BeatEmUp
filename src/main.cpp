@@ -23,23 +23,27 @@
 class TestGame : public Game {
 
 	private:
+	DrawableList dList;
 	Sprite* s1;
 	Sprite* s2;
-
 	
 	public:
 	TestGame() {
-
-		s1 = new Sprite( "img/oalpha.png" );
-		s2 = new Sprite( "img/apple.png" );
-
+		
+		Sprite* s1 = new Sprite( "img/oalpha.png" );
+		Sprite* s2 = new Sprite( "img/apple.png" );
+		s1->print();
+		dList.add( s1 );
+		dList.add( s2 );
+		dList.add( new Sprite( "img/ball.png" ));
+		
+		dList.remove( s1 );
 	}
 
 	
 
 		
 	virtual ~TestGame() { 
-		
 		delete s1;
 		delete s2;
 	}	
@@ -56,8 +60,7 @@ class TestGame : public Game {
 
 	void draw() {
 		
-		s2->draw();
-		s1->draw();
+		dList.draw();
 	}
 
 };
