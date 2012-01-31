@@ -3,6 +3,7 @@
 //standard includes
 #include <iostream>
 #include <string>
+#include <list>
 
 //own includes
 #include "dep.h"
@@ -12,11 +13,9 @@
 #include "gameobject.h"
 #include "inputlistener.h"
 #include "spritearray.h"
-#include <list>
 #include "sprite.h"
 #include "vec2.h"
-
-#include "vec2.h"
+#include "drawablelist.h"
 
 
 
@@ -24,44 +23,42 @@
 class TestGame : public Game {
 
 	private:
-	SpriteArray* sa;
-	SpriteLib sLib;
-	list<Sprite> sprites;
-	list<Sprite>::iterator it;
-		
+	Sprite* s1;
+	Sprite* s2;
+
+	
 	public:
 	TestGame() {
-		sa = new SpriteArray( "img/apple.png", 2, 2 );
-		sa->setCurrent( 1 );
-		sa->setDisplayTime( 1 );
-		sa->enableLoop();
-	
-		sprites = Sprite::getSubImages( "img/apple.png", 2, 2 );
-		it = sprites.begin();
-		//it++;
+
+		s1 = new Sprite( "img/oalpha.png" );
+		s2 = new Sprite( "img/apple.png" );
+
 	}
 
 	
 
 		
 	virtual ~TestGame() { 
-		sLib.deleteAll();
+		
+		delete s1;
+		delete s2;
 	}	
 
 
 		
-	void input( SDL_Event& event ) {}
+	void input( SDL_Event& event ) { /**/ }
 
-	
-	void update( int delta ) {
-		//sa->update( delta );
-	}
+
+		
+	void update( int delta ) { /**/ }
+
 		
 
 	void draw() {
-		sa->draw();
+		
+		s2->draw();
+		s1->draw();
 	}
-
 
 };
 

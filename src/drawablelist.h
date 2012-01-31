@@ -7,7 +7,7 @@
 using namespace std;
 
 typedef list<Drawable*> DList;
-class DrawableList {
+class DrawableList : public Drawable {
 
 	private:
 	DList dList;

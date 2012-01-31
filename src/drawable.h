@@ -19,6 +19,10 @@ class Drawable {
 	void setVisibility( bool& visible ) { this->visible = visible; }
 	virtual void draw() = 0;
 
+	static bool compareZIndex( Drawable* first, Drawable* second ) {
+		if ( first->getZIndex() > second->getZIndex()) return true;
+		else return false;
+	}
 };
 
 

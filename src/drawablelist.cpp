@@ -1,7 +1,7 @@
 
 
 #include "drawablelist.h"
-
+#include <iostream>
 
 
 DrawableList::DrawableList() : it( dList.begin() ) {
@@ -17,50 +17,42 @@ DrawableList::~DrawableList() {
 
 void DrawableList::add( Drawable* drawable ) {
 
+	//if ( !contains( drawable ))
+		dList.push_back( drawable );
 
-	for ( it = dList.begin() ; it != dList.end() ; it++ ) {
-
-		if ( drawable->getZIndex() < (*it)->getZIndex() )
-			dList.insert( it, drawable );		
-		
-	}
-	
-
-	if ( it == dList.end() ) 
-		dList.insert( it, drawable );
-	
+	//dList.sort( Drawable::compareZIndex );
 }
 
 
 void DrawableList::remove( int index ) {
 
-	it = dList.begin();
-	for ( int i = 0 ; i < index ; i++, it++ )
+	if ( index < dList.size() ) {
+		
+		it = dList.begin();
+		for ( int i = 0 ; i < index ; ++i, it++ );
 
-	dList.erase( it );
-
-}
-
-
-void DrawableList::remove( Drawable* drawable ) {
-
-	for ( it = dList.begin() ; ( (*it) != drawable && it != dList.end() ) ; it++ ) {
-
-		if ( it != dList.end() )
-		    dList.erase( it );
+		dList.erase( it );
 
 	}
 	
 }
 
 
+void DrawableList::remove( Drawable* drawable ) {
+
+	if ( contains( drawable)) dList.erase( it );
+}
+
+
 bool DrawableList::contains( Drawable* drawable ) {
 
-	for ( it = dList.begin() ; ( (*it) != drawable && it != dList.end() ) ; it++ )
+	if ( dList.size() != 0 ) return false;
+	else {
+		for ( it = dList.begin() ; ((*it) != drawable && it != dList.end() ) ; it++ );
 
-	if ( it != dList.end() ) return true;
-	else return false;
-
+		if ( it != dList.end() ) return true;
+		else return false;
+	}
 }
 
 
@@ -73,8 +65,11 @@ int DrawableList::size() {
 
 void DrawableList::draw() {
 
-	for ( it = dList.begin() ; it != dList.end() ; it++ )
+	if ( dList.size() != 0 ) {
+		for ( it = dList.begin() ; it != dList.end() ; it++ ) {
 
-		(*it)->draw();
+			(*it)->draw();
 
+		}
+	}
 }

@@ -6,7 +6,7 @@
 Sprite::Sprite() {
 	
 	std::cout << "Bitte Bild-Pfad im Konstruktor angeben.\n";
-	
+	delete this;
 }
 
 
@@ -15,7 +15,6 @@ Sprite::Sprite( const std::string image_path ) {
 
 	SDL_Surface* image = loadImage( image_path );
 	init( image );
-
 }
 
 
@@ -32,6 +31,22 @@ Sprite::~Sprite() {
 	
 }
 
+
+
+SDL_Surface* Sprite::loadImage( const std::string image_path ) {
+//load image
+	SDL_Surface* image = NULL;
+	image = IMG_Load( image_path.c_str() );
+
+	if ( !image ) std::cout << "Fehler: " << image_path << std::endl;
+	else {
+		if ( image->format->Amask == 0 ) {
+			image = SDL_DisplayFormatAlpha( image );
+		}
+	}
+
+	return image;
+}
 
 
 void Sprite::init( SDL_Surface* image ) {
@@ -65,22 +80,38 @@ void Sprite::putSize( SDL_Surface* image ) {
 
 
 
-SDL_Surface* Sprite::loadImage( const std::string image_path ) {
-//load image
-	SDL_Surface* image = NULL;
-	image = IMG_Load( image_path.c_str() );
 
-	if ( !image ) std::cout << "Fehler: " << image_path << std::endl;
-	else {
-		if ( image->format->Amask == 0 ) {
-			image = SDL_DisplayFormatAlpha( image );
-		}
+void Sprite::flipSurface( SDL_Surface* src, SDL_Surface* desk, Vec2i offset, Vec2i size ) { 
+	
+	//If the source-surface must be locked 
+	if( SDL_MUSTLOCK( src ) ) { 
+		SDL_LockSurface( src );
+	}
+	//Go through rows 
+	for( int y = offset.y ; y < size.y ; y++ ) {
+	//Go through columns
+		for( int x = offset.x ; x < size.x ; x++ ) {
+			putPixel32( desk, x, y, getPixel32( src, x, y )); 
+		} 
 	}
 
-	return image;
+	//Unlock source-surface
+	if( SDL_MUSTLOCK( src ) ) {
+		SDL_UnlockSurface( src ); 
+	} 
+	
+	//Copy color key 
+	if( src->flags & SDL_SRCCOLORKEY ) { 
+		SDL_SetColorKey( desk, SDL_RLEACCEL | SDL_SRCCOLORKEY, src->format->colorkey );
+	} 
+
 }
 
 
+
+void Sprite::flipSurface( SDL_Surface* src, SDL_Surface* desk ) {
+	flipSurface( src, desk, Vec2i( 0, 0 ), Vec2i( src->w, src->h ));
+}
 
 
 
@@ -101,15 +132,15 @@ GLuint Sprite::getGLuint( SDL_Surface* surface ) {
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE );
 
 	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels );
-	
+
 	return object;
 }
 
 
 Uint32 Sprite::getPixel32( SDL_Surface* image, int x, int y ) { 
-//Convert the pixels to 32 bit 
-	Uint32 *pixels = (Uint32*) image->pixels; 
-//Get the requested pixel 
+	//Convert the pixels to 32 bit 
+	Uint32* pixels = (Uint32*) image->pixels; 
+	//Get the requested pixel 
 	return pixels[ ( y * image->w ) + x ]; 
 } 
 
@@ -117,43 +148,10 @@ Uint32 Sprite::getPixel32( SDL_Surface* image, int x, int y ) {
 
 
 void Sprite::putPixel32( SDL_Surface* image, int x, int y, Uint32 pixel ) { 
-//Convert the pixels to 32 bit 
+	//Convert the pixels to 32 bit 
 	Uint32* pixels = (Uint32*) image->pixels; 
-//Set the pixel 
+	//Set the pixel 
 	pixels[ ( y * image->w ) + x ] = pixel; 
-}
-
-
-void Sprite::flipSurface( SDL_Surface* src, SDL_Surface* desk, Vec2i offset, Vec2i size ) { 
-
-//If the source-surface must be locked 
-	if( SDL_MUSTLOCK( src ) ) { 
-		SDL_LockSurface( src );
-	}
-//Go through rows 
-	for( int y = offset.y ; y < size.y ; y++ ) { 
-	//Go through columns
-		for( int x = offset.x ; x < size.x ; x++ ) {
-			putPixel32( desk, x, y, getPixel32( src, x, y )); 
-		} 
-	}
-
-//Unlock source-surface
-	if( SDL_MUSTLOCK( src ) ) {
-		SDL_UnlockSurface( src ); 
-	} 
-	
-//Copy color key 
-	if( src->flags & SDL_SRCCOLORKEY ) { 
-		SDL_SetColorKey( desk, SDL_RLEACCEL | SDL_SRCCOLORKEY, src->format->colorkey );
-	} 
-
-}
-
-
-
-void Sprite::flipSurface( SDL_Surface* src, SDL_Surface* desk ) {
-	flipSurface( src, desk, Vec2i( 0, 0 ), Vec2i( src->w, src->h ));
 }
 
 

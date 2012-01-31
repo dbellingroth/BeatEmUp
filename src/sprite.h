@@ -30,18 +30,23 @@ class Sprite : public Transformable, public Drawable {
 
 	virtual ~Sprite();
 
+	void print() { 
+		std::cout << "TID: " << textureID << std::endl;
+		std::cout << "Size: " << width << ", " << height << std::endl;
+		std::cout << "SizeT: " << twidth << ", " << theight << std::endl;
+		std::cout << "fac: " << wfac << ", " << hfac << std::endl << std::endl;
+	}
 	
+	static SDL_Surface* loadImage( const std::string image_path );
 	void putSize( SDL_Surface* image );
-	void draw();
-
-	static std::list<Sprite> getSubImages( const std::string image_path, int x, int y );
-	static Uint32 getPixel32( SDL_Surface* image, int x, int y );
-	static void putPixel32( SDL_Surface* surface, int x, int y, Uint32 pixel );
+	static GLuint getGLuint( SDL_Surface* surface );
 	static void flipSurface( SDL_Surface* src, SDL_Surface* desk );
 	static void flipSurface( SDL_Surface* src, SDL_Surface* desk, Vec2i offset, Vec2i size );
-	static SDL_Surface* loadImage( const std::string image_path );
-	static GLuint getGLuint( SDL_Surface* surface );
+	static void putPixel32( SDL_Surface* surface, int x, int y, Uint32 pixel );
+	static Uint32 getPixel32( SDL_Surface* image, int x, int y );
+	static std::list<Sprite> getSubImages( const std::string image_path, int x, int y );
 
+	void draw();
 };
 
 #endif
