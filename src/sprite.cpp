@@ -202,7 +202,6 @@ void Sprite::draw() {
 		glVertex2f(0, height);
 		glEnd();
 	glPopMatrix();
-
 }
 
 
