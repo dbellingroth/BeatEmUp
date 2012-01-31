@@ -5,7 +5,7 @@
 
 #include <string>
 #include <list>
-
+#include <iostream>
 #include "dep.h"
 #include "SDL/SDL_image.h"
 #include "transformable.h"
