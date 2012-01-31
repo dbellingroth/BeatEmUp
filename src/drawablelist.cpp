@@ -1,77 +1,75 @@
 
-
 #include "drawablelist.h"
 #include <iostream>
 
-
-DrawableList::DrawableList() : it( dList.begin() ) {
+DrawableList::DrawableList() :
+		it(dList.begin()) {
 
 }
-
-
 
 DrawableList::~DrawableList() {
 
 }
 
-
-void DrawableList::add( Drawable* drawable ) {
+void DrawableList::add(Drawable* drawable) {
 
 	//if ( !contains( drawable ))
-		dList.push_back( drawable );
+	dList.push_back(drawable);
 
 	//dList.sort( Drawable::compareZIndex );
 }
 
+void DrawableList::remove(int index) {
 
-void DrawableList::remove( int index ) {
+	if (index < dList.size() && dList.size() != 0) {
 
-	if ( index < dList.size() && dList.size() != 0 ) {
-		
 		it = dList.begin();
-		for ( int i = 0 ; i < index ; ++i, it++ );
+		for (int i = 0; i < index; ++i, it++)
+			;
 
-		dList.erase( it );
+		dList.erase(it);
 
 	}
-	
+
 }
 
+void DrawableList::remove(Drawable* drawable) {
 
-void DrawableList::remove( Drawable* drawable ) {
+	if (dList.size()) {
 
-	if ( dList.size() ) {
+		for (it = dList.begin(); ((*it) != drawable && it != dList.end()); it++)
+			;
 
-		for ( it = dList.begin() ; ((*it) != drawable && it != dList.end()) ; it++ );
-
-		if ( it != dList.end()) dList.erase( it );
+		if (it != dList.end())
+			dList.erase(it);
 	}
 }
 
+bool DrawableList::contains(Drawable* drawable) {
 
-bool DrawableList::contains( Drawable* drawable ) {
-
-	if ( dList.size() ) return false;
+	if (dList.size())
+		return false;
 	else {
-		for ( it = dList.begin() ; ((*it) != drawable && it != dList.end() ) ; it++ );
+		for (it = dList.begin(); ((*it) != drawable && it != dList.end()); it++)
+			;
 
-		if ( it != dList.end() ) return true;
-		else return false;
+		if (it != dList.end())
+			return true;
+		else
+			return false;
 	}
 }
-
 
 int DrawableList::size() {
 
 	return dList.size();
-	
-}
 
+}
 
 void DrawableList::draw() {
 
-	if ( dList.size() != 0 ) {
-		for ( it = dList.begin() ; it != dList.end() ; it++ ) {
+	if (dList.size() != 0) {
+		for (it = dList.begin(); it != dList.end(); it++) {
 
 			(*it)->draw();
 

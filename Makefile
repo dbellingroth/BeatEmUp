@@ -13,3 +13,6 @@ all: $(OBJ_FILES)
 
 obj/%.o: src/%.cpp
 	g++ -c -o $@ $< $(CFLAGS)
+
+clean:
+	rm obj/*

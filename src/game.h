@@ -1,5 +1,4 @@
 
-
 #ifndef _GAME_
 #define _GAME_
 
@@ -7,13 +6,8 @@
 #include "inputlistener.h"
 #include "drawable.h"
 
-
-class Game : public GameObject, public Drawable, public InputListener {
-
-	
-
+class Game: public GameObject, public Drawable, public InputListener {
 
 };
-
 
 #endif

@@ -1,6 +1,5 @@
 //transformable.h
 
-
 #ifndef _TRANSFORMABLE_
 #define _TRANSFORMABLE_
 
@@ -11,24 +10,41 @@ typedef Vec2<float> Vec2f;
 
 class Transformable {
 
-	protected:
+protected:
 	Vec2f translate;
 	Vec2f rotationPoint;
 	double rotationAngle;
 	Vec2f scaleFactor;
 
-	public:
+public:
 	Transformable();
-	virtual ~Transformable() {}
-		
-	Vec2f getTranslate() { return translate; }
-	void setTranslate( Vec2f translate ) { translate = translate; }
-	Vec2f getRotationPoint() { return rotationPoint; }
-	void setRotationPoint( Vec2f rotationPoint ) { rotationPoint = rotationPoint; }
-	double getRotationAngle() { return rotationAngle; }
-	void setRotationAngle( double rotationAngle ) { rotationAngle = rotationAngle; }
-	Vec2f getScaleFactor() { return scaleFactor; }
-	void setScaleFactor( Vec2f scaleFactor ) { scaleFactor = scaleFactor; }
+	virtual ~Transformable() {
+	}
+
+	Vec2f getTranslate() {
+		return translate;
+	}
+	void setTranslate(Vec2f translate) {
+		translate = translate;
+	}
+	Vec2f getRotationPoint() {
+		return rotationPoint;
+	}
+	void setRotationPoint(Vec2f rotationPoint) {
+		rotationPoint = rotationPoint;
+	}
+	double getRotationAngle() {
+		return rotationAngle;
+	}
+	void setRotationAngle(double rotationAngle) {
+		rotationAngle = rotationAngle;
+	}
+	Vec2f getScaleFactor() {
+		return scaleFactor;
+	}
+	void setScaleFactor(Vec2f scaleFactor) {
+		scaleFactor = scaleFactor;
+	}
 
 	/**
 	 * Transformiert die aktuelle Matrix so wie gewünscht. Vorher bitte
@@ -37,7 +53,7 @@ class Transformable {
 	 * aufgerufen werden!
 	 */
 	virtual void transform();
-	
+
 };
 
 #endif
