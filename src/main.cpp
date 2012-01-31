@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
 
 	TestGame test;
 	window.createDisplay(&test);
-
+	exit(0);
 	return 0;
 }
 
