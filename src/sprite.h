@@ -6,8 +6,6 @@
 #include <iostream>
 #include <string>
 #include <list>
-
-
 #include "dep.h"
 #include "SDL/SDL_image.h"
 #include "transformable.h"

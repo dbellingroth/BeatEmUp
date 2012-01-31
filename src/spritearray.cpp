@@ -29,7 +29,7 @@ void SpriteArray::update(int delta) {
 
 	if ( visible && animation ) {
 		
-		displayedTime += (delta * pow(10, -1));
+		displayedTime += (delta * pow(10.0, -1.0));
 		
 		if ( displayedTime >= displayTime ) {
 			
