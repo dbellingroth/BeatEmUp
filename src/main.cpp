@@ -17,43 +17,48 @@
 #include "vec2.h"
 #include "drawablelist.h"
 
-class TestGame: public Game {
+class TestGame : public Game {
 
-private:
-	DrawableList dList;
-	Sprite* s1;
-	Sprite* s2;
+	private:
+	SpriteArray* sArray;
 
-public:
+
+	public:
 	TestGame() {
-
-		s1 = new Sprite("img/oalpha.png");
-		s2 = new Sprite("img/apple.png");
-		s1->print();
-		dList.add(s1);
-		dList.add(s2);
-		dList.add(new Sprite("img/ball.png"));
-
-		dList.remove(s2);
+		
+		sArray = new SpriteArray( "img/apple.png", 2, 2 );
+		sArray->enableAnimation();
+		sArray->enableLoop();
+		sArray->setDisplayTime( 1.0 );
+		sArray->setLoop( 4, 0 );
 	}
+
+
 
 	virtual ~TestGame() {
-		delete s1;
-		delete s2;
+		delete sArray;
 	}
 
-	void input(SDL_Event& event) { /**/
+
+
+	void input(SDL_Event& event) { /**/ }
+
+
+
+	void update(int delta) {
+		sArray->update( delta );
 	}
 
-	void update(int delta) { /**/
-	}
+
 
 	void draw() {
 
-		dList.draw();
+		sArray->draw();
 	}
 
 };
+
+
 
 int main(int argc, char **argv) {
 
@@ -61,7 +66,7 @@ int main(int argc, char **argv) {
 	window.setCaption("SDL / OpenGL - Test");
 
 	TestGame test;
-	window.createDisplay(&test);
+	window.createDisplay( &test );
 	return 0;
 }
 

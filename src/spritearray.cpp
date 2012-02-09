@@ -2,44 +2,52 @@
 #include <cmath>
 #include <iostream>
 
-SpriteArray::SpriteArray(const string image_path, int nx, int ny) :
-		displayTime(0), displayedTime(0), animation(false), loop(false) {
 
-	sprites = Sprite::getSubImages(image_path, nx, ny);
+
+SpriteArray::SpriteArray( const string image_path, int nx, int ny ) :
+		displayTime( 0 ), displayedTime( 0 ), animation( false ), loop( false ) {
+
+	sprites = Sprite::getSubImages( image_path, nx, ny );
 	currentSprite = sprites.begin();
 
-	if (currentSprite == sprites.end())
+	if ( currentSprite == sprites.end() )
 		std::cout << "true\n";
 	loopStart = sprites.begin();
 	loopEnding = sprites.end();
 	visible = true;
 }
 
+
+
 SpriteArray::~SpriteArray() {
 
 }
 
+
+
 void SpriteArray::update(int delta) {
 
-	if (visible && animation) {
+	if ( visible && animation ) {
 
-		displayedTime += (delta * pow(10.0, -1.0));
+		displayedTime += ( delta * pow( 10.0, -1.0) );
 
-		if (displayedTime >= displayTime) {
+		if ( displayedTime >= displayTime ) {
 
 			displayedTime = 0;
 			currentSprite++;
 
-			if (currentSprite == loopEnding) {
-				if (loop)
+			if ( currentSprite == loopEnding ) {
+				if ( loop )
 					currentSprite = loopStart;
 				else
-					setVisibility(false);
+					setVisibility( false );
 			}
 		}
 	}
 
 }
+
+
 
 void SpriteArray::draw() {
 
@@ -54,24 +62,35 @@ void SpriteArray::draw() {
 
 }
 
-void SpriteArray::setCurrent(int index) {
+
+
+void SpriteArray::setCurrent( int index ) {
 
 	currentSprite = sprites.begin();
-	for (int i = 0; i < index && currentSprite != --(sprites.end());
-			i++, currentSprite++)
-		;
+	for ( int i = 0 ; i < index && currentSprite != --( sprites.end() ) ; i++, currentSprite++);
 
 }
 
-bool SpriteArray::setLoop(int loopStarti, int loopEndingi) {
 
-	if (loopStarti < loopEndingi && loopEndingi > sprites.size()) {
 
-		for (int i = 0; i < loopStarti; i++, loopStart++)
-			;
-		for (int i = 0; i <= loopEndingi; i++, loopEnding++)
-			;
+bool SpriteArray::setLoop( int loopStarti, int loopEndingi ) {
 
+	int loopEndingio, loopStartio;
+
+	if ( loopStarti > loopEndingi ) {
+		int temp = loopEndingi;
+		int loopEndingio = loopStarti;
+		int loopStartio = temp;
+	} else {
+		loopStartio = loopStarti;
+		loopEndingio = loopEndingi;
+	}
+
+
+	if ( loopEndingio <= sprites.size() ) {
+		for ( int i = 0 ; i < loopStartio ; i++, loopStart++ );
+		for ( int i = 0 ; i <= loopEndingio ; i++, loopEnding++ );
+		loopEnding++;
 		return true;
 	}
 

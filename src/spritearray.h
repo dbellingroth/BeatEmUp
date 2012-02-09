@@ -26,20 +26,12 @@ public:
 	void enableAnimation() {
 		animation = true;
 	}
-	void disableAnimation() {
-		animation = false;
-	}
-	void setDisplayTime(float displayTime) {
-		this->displayTime = displayTime;
-	}
-	void enableLoop() {
-		animation = true, loop = true;
-	}
-	void disableLoop() {
-		this->loop = false;
-	}
-	bool setLoop(int loopStart, int loopEnding);
-	void update(int delta);
+	void disableAnimation() { animation = false; }
+	void setDisplayTime(float displayTime) { this->displayTime = displayTime; }
+	void enableLoop() { animation = true, loop = true; }
+	void disableLoop() { this->loop = false; }
+	bool setLoop( int loopStart, int loopEnding );
+	void update( int delta );
 	void draw();
 };
 
